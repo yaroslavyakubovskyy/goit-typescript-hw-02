@@ -1,19 +1,24 @@
-import { useState } from 'react';
+import { useState, FC, FormEvent, ChangeEvent } from 'react';
 import toast from 'react-hot-toast';
 import s from './SearchBar.module.css';
+import { SearchBarProps } from '../../types';
 
-const SearchBar = ({ handleSearch }) => {
-  const [inputValue, setInputValue] = useState('');
+const SearchBar: FC<SearchBarProps> = ({ handleSearch }) => {
+  const [inputValue, setInputValue] = useState<string>('');
 
-  const onSubmit = e => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const query = inputValue.trim();
     if (!query) {
-      toast.error("the field can't be empty", { duration: 2500 });
+      toast.error('Please enter a valid search term.', { duration: 2500 });
       return;
     }
     handleSearch(query);
     setInputValue('');
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
   };
 
   return (
@@ -25,7 +30,7 @@ const SearchBar = ({ handleSearch }) => {
           autoFocus
           placeholder="Search images and photos"
           value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
+          onChange={handleChange}
         />
         <button type="submit">Search</button>
       </form>

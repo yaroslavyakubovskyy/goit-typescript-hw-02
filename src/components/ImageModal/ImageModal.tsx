@@ -1,31 +1,21 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import Modal from 'react-modal';
 import s from './ImageModal.module.css';
+import { ImageModalProps } from '../../types';
 
 Modal.setAppElement('#root');
-const ImageModal = ({ data, onClose }) => {
+const ImageModal: FC<ImageModalProps> = ({ data, onClose }) => {
   if (!data) return null;
 
   const { urls, alt_description, user, likes } = data;
 
   useEffect(() => {
-    const handleEsc = e => {
-      if (e.key === 'Escape') {
-        onClose();
-      }
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleEsc);
-
-    return () => {
-      window.removeEventListener('keydown', handleEsc);
-    };
+    return () => window.removeEventListener('keydown', handleEsc);
   }, [onClose]);
-
-  const handleOverlayClick = e => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
 
   return (
     <Modal
@@ -35,7 +25,11 @@ const ImageModal = ({ data, onClose }) => {
       className={s.modal}
       overlayClassName={s.overlay}
     >
-      <img src={urls.regular} alt={alt_description} className={s.image} />
+      <img
+        src={urls.regular}
+        alt={alt_description || 'Large Image'}
+        className={s.image}
+      />
       <div className={s.infoOverlay}>
         <div className={s.modalInfo}>
           <p>Author: {user?.name}</p>
