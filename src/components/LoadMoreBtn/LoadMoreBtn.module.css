@@ -1,0 +1,22 @@
+.loadMoreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fafafa;
+  background-color: #4d5ae5;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: transparent;
+  border-radius: 6px;
+  border-color: transparent;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  transition: background-color 250ms ubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    background-color: #404bbf;
+  }
+}
