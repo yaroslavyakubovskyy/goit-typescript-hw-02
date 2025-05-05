@@ -7,7 +7,7 @@ import { fetchImages } from './components/services/api';
 import SearchBar from './components/SearchBar/SearchBar';
 import toast, { Toaster } from 'react-hot-toast';
 import LoadMoreBtn from './components/LoadMoreBtn/LoadMoreBtn';
-import { UnsplashImage } from './types';
+import { FetchImagesProps, UnsplashImage } from './types';
 
 const App = () => {
   const [query, setQuery] = useState<string>('');
@@ -26,7 +26,9 @@ const App = () => {
     const getData = async () => {
       try {
         setIsLoading(true);
-        const data = await fetchImages(query, page, { signal });
+        const data: FetchImagesProps = await fetchImages(query, page, {
+          signal,
+        });
         if (data.results.length === 0) {
           if (page === 1)
             toast('No images found.', {

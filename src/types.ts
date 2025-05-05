@@ -34,3 +34,8 @@ export interface ImageCardProps {
   image: UnsplashImage;
   openModal: (image: UnsplashImage) => void;
 }
+
+export interface FetchImagesProps {
+  total_pages: number;
+  results: UnsplashImage[];
+}
